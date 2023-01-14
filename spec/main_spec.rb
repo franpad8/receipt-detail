@@ -21,4 +21,52 @@ describe "#main" do
       expect { main @shopping_basket }.to output(result).to_stdout
     end
   end
+
+  context "with invalid input format" do
+    context "with blank input" do
+      before do
+        @shopping_basket = "   \n   "
+      end
+
+      it "outputs error message" do
+        expect { main @shopping_basket }.to raise_error(StandardError, "Invalid input format")
+      end
+    end
+
+    context "word instead of decimal in the price" do
+      before do
+        @shopping_basket = <<~TEXT
+          2 book at twelve
+        TEXT
+      end
+
+      it "outputs error message" do
+        expect { main @shopping_basket }.to raise_error(StandardError, "Invalid input format")
+      end
+    end
+
+    context "with no price" do
+      before do
+        @shopping_basket = <<~TEXT
+          1 music CD
+        TEXT
+      end
+
+      it "outputs error message" do
+        expect { main @shopping_basket }.to raise_error(StandardError, "Invalid input format")
+      end
+    end
+
+    context "with no quantity" do
+      before do
+        @shopping_basket = <<~TEXT
+          chocolate bar at 0.85
+        TEXT
+      end
+
+      it "outputs error message" do
+        expect { main @shopping_basket }.to raise_error(StandardError, "Invalid input format")
+      end
+    end
+  end
 end
