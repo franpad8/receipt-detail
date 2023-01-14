@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
+require_relative 'lib/receipt_calculator'
 
-def main lines
-  parse_order_lines(lines).to_s
-  puts "2 book: 24.98\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.50\nTotal: 42.32\n"
+def main str
+  order_lines = parse_order_lines(str)
+  receipt = ReceiptCalculator.call order_lines
+
+  print_receipt receipt
 end
 
 def parse_order_lines lines
@@ -18,6 +21,14 @@ def parse_order_lines lines
 
     [quantity.to_i, name, price.to_f.round(2)]
   end
+end
+
+def print_receipt receipt
+  receipt[:items].each do |quantity, name, item_total|
+    puts "#{quantity} #{name}: #{item_total}"
+  end
+  puts "Sales Taxes: #{receipt[:tax_total]}"
+  puts "Total: #{receipt[:total]}"
 end
 
 def raise_format_error

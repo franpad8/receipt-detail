@@ -22,6 +22,25 @@ describe "#main" do
     end
   end
 
+  context "with imported items in the shopping basket" do
+    before do
+      @shopping_basket = <<~TEXT
+        1 imported box of chocolates at 10.00
+        1 imported bottle of perfume at 47.50
+      TEXT
+    end
+
+    it "outputs the receipt details" do
+      result = <<~TEXT
+        1 imported box of chocolates: 10.50
+        1 imported bottle of perfume: 54.65
+        Sales Taxes: 7.65
+        Total: 65.15
+      TEXT
+      expect { main @shopping_basket }.to output(result).to_stdout
+    end
+  end
+
   context "with invalid input format" do
     context "with blank input" do
       before do
