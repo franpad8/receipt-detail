@@ -21,7 +21,7 @@ class ReceiptCalculator
 
       total += item_total
 
-      [quantity, name, item_total]
+      { quantity: order_item[:quantity], name: order_item[:name], total: item_total }
     end
 
     { items: receipt_items, tax_total: tax_total, total: total }

@@ -19,13 +19,13 @@ def parse_order_lines lines
 
     quantity, name, price = match.to_a[1..-1]
 
-    [quantity.to_i, name, price.to_f.round(2)]
+    { quantity: quantity.to_i, name: name, price: price.to_f.round(2) }
   end
 end
 
 def print_receipt receipt
-  receipt[:items].each do |quantity, name, item_total|
-    puts "#{quantity} #{name}: #{item_total}"
+  receipt[:items].each do |item|
+    puts "#{item[:quantity]} #{item[:name]}: #{item[:total]}"
   end
   puts "Sales Taxes: #{receipt[:tax_total]}"
   puts "Total: #{receipt[:total]}"
