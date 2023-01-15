@@ -17,9 +17,9 @@ end
 
 def print_receipt receipt
   receipt[:items].each do |item|
-    puts "#{item[:quantity]} #{item[:name]}: #{item[:total]}"
+    puts format('%d %s: %.2f', item[:quantity], item[:name], item[:total])
   end
-  puts "Sales Taxes: #{receipt[:tax_total]}"
+  puts format('Sales Taxes: %.2f', receipt[:tax_total])
   puts "Total: #{receipt[:total]}"
 end
 

@@ -4,16 +4,14 @@ require_relative 'lib/receipt_calculator'
 
 def main str
   order_lines = parse_order_lines(str)
-  receipt = ReceiptCalculator.call order_lines
-
-  print_receipt receipt
+  print_receipt ReceiptCalculator.call(order_lines)
 end
 
 begin
   if __FILE__ == $PROGRAM_NAME
-    main ARGF.readlines.map(&:chomp)
+    main ARGF.read
   end
-rescue Error => e
+rescue StandardError => e
   puts "Error: #{e.message}"
   exit 1
 end

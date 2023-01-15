@@ -1,3 +1,5 @@
+require_relative 'tax_calculator'
+
 # Service to calculate and generate the shopping receipt
 class ReceiptCalculator
 
@@ -14,7 +16,7 @@ class ReceiptCalculator
     tax_total = 0.0
     receipt_items = @order_items.map do |order_item|
       item_subtotal = (order_item[:quantity] * order_item[:price]).round(2)
-      item_tax = 0.0
+      item_tax = TaxCalculator.call order_item
 
       item_total = item_subtotal + item_tax
       tax_total += item_tax
