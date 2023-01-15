@@ -2,7 +2,7 @@
 
 def parse_order_lines lines
   regex = /^(\d+)\s+([\w\s]+)\sat\s+(\d+\.\d+)$/
-  lines = lines.split("\n")
+  lines = lines.split("\n").map(&:strip).reject(&:empty?)
   raise_format_error if lines.empty?
 
   lines.map do |line|
